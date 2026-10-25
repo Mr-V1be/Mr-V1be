@@ -26,7 +26,7 @@ copy:
   generatedNotice: Generated from profile/profile.yaml by pnpm generate. Edit the data, not this file.
   bannerAlt: Evgeniy Gospodarik, Senior Full Stack Engineer. One backend serving web, iOS and Android, Telegram, desktop and store clients.
   build: What I build
-  showcaseAlt: Kedrovnik 3D house configurator with dollar estimates, Spotmatch Mini App on a phone, Gem Finder market analytics.
+  showcaseAlt: Screens of live projects cycling in a browser and a phone, among them the Kedrovnik 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.
   liveDemo: Live demo
   nda: client work under NDA
   privateCode: private code
@@ -108,21 +108,32 @@ platforms:
     title: Graphics and simulation
     projects: [flux-sandbox]
 
+# Devices of the showcase, left to right; each device cycles through its slides.
 showcase:
-  - project: kedrovnik
-    device: browser
-    image:
-      light: assets/projects/kedrovnik-configurator-light.webp
-      dark: assets/projects/kedrovnik-configurator-dark.webp
-  - project: spotmatch
-    device: phone
-    image:
-      light: assets/projects/spotmatch-discover.webp
-  - project: gemfinder
-    device: browser
-    image:
-      light: assets/projects/gemfinder-analysis-light.webp
-      dark: assets/projects/gemfinder-analysis-dark.webp
+  - device: browser
+    slides:
+      - project: kedrovnik
+        image:
+          light: assets/projects/kedrovnik-configurator-light.webp
+          dark: assets/projects/kedrovnik-configurator-dark.webp
+      - project: flux-sandbox
+        image:
+          light: assets/projects/flux-sandbox.webp
+  - device: phone
+    slides:
+      - project: spotmatch
+        image:
+          light: assets/projects/spotmatch-discover.webp
+  - device: browser
+    slides:
+      - project: gemfinder
+        image:
+          light: assets/projects/gemfinder-analysis-light.webp
+          dark: assets/projects/gemfinder-analysis-dark.webp
+      - project: gemfinder
+        image:
+          light: assets/projects/gemfinder-results-light.webp
+          dark: assets/projects/gemfinder-results-dark.webp
 
 principles:
   - title: Architecture first

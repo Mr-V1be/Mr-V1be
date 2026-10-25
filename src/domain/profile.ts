@@ -34,10 +34,12 @@ const ThemedImage = z.object({
 
 const Device = z.enum(["browser", "phone"]);
 
-const ShowcaseItem = z.object({
-  project: Id,
+const ShowcaseSlide = z.object({ project: Id, image: ThemedImage });
+
+// One device of the showcase; with several slides its screen cycles through them.
+const ShowcaseDevice = z.object({
   device: Device,
-  image: ThemedImage,
+  slides: z.array(ShowcaseSlide).min(1),
 });
 
 export const ProfileSchema = z
@@ -67,7 +69,7 @@ export const ProfileSchema = z
     }),
     projects: z.array(Project).min(1),
     platforms: z.array(Platform).min(1),
-    showcase: z.array(ShowcaseItem),
+    showcase: z.array(ShowcaseDevice).min(1),
     principles: z.array(z.object({ title: z.string().min(1), text: z.string().min(1) })),
     openSource: z.array(z.object({ repo: z.string().regex(/^[\w.-]+\/[\w.-]+$/), summary: z.string().min(1) })),
     // Live images are published to a separate branch so the daily refresh stays out of the main history.
@@ -89,11 +91,13 @@ export const ProfileSchema = z
         ctx.addIssue({ code: "custom", path: ["platforms", index], message: "a platform needs projects or NDA work" });
       }
     });
-    profile.showcase.forEach((item, index) => known(item.project, ["showcase", index, "project"]));
+    profile.showcase.forEach((device, index) =>
+      device.slides.forEach((slide, at) => known(slide.project, ["showcase", index, "slides", at, "project"])),
+    );
   });
 
 export type Profile = z.infer<typeof ProfileSchema>;
 export type Platform = Profile["platforms"][number];
 export type Project = Profile["projects"][number];
-export type ShowcaseItem = Profile["showcase"][number];
+export type ShowcaseDevice = Profile["showcase"][number];
 export type DeviceKind = z.infer<typeof Device>;

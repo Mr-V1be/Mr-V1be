@@ -5,7 +5,7 @@ import { GENERATED_PATHS } from "../application/artifacts.js";
 import { renderBanner } from "../application/banner/render-banner.js";
 import type { Artifact } from "../application/ports.js";
 import { renderReadme } from "../application/readme/render-readme.js";
-import { buildSlides } from "../application/showcase/build-slides.js";
+import { buildDecks } from "../application/showcase/build-slides.js";
 import { renderShowcase } from "../application/showcase/render-showcase.js";
 import { ProfileSchema } from "../domain/profile.js";
 import { THEME_NAMES, ThemesSchema } from "../domain/theme.js";
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
   const themed = await Promise.all(
     THEME_NAMES.map(async (name): Promise<Artifact[]> => [
       { path: GENERATED_PATHS.banner(name), content: renderBanner(profile, themes[name], outliner) },
-      { path: GENERATED_PATHS.showcase(name), content: renderShowcase(await buildSlides(profile, name, images), themes[name], profile.copy.showcaseAlt) },
+      { path: GENERATED_PATHS.showcase(name), content: renderShowcase(await buildDecks(profile, name, images), themes[name], profile.copy.showcaseAlt, outliner) },
     ]),
   );
   const artifacts = [...themed.flat(), { path: GENERATED_PATHS.readme, content: renderReadme({ profile, repositories }) }];

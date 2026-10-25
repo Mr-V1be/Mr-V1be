@@ -15,7 +15,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/showcase-dark.svg">
-  <img src="assets/generated/showcase-light.svg" width="100%" alt="Kedrovnik 3D house configurator with dollar estimates, Spotmatch Mini App on a phone, Gem Finder market analytics.">
+  <img src="assets/generated/showcase-light.svg" width="100%" alt="Screens of live projects cycling in a browser and a phone, among them the Kedrovnik 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.">
 </picture>
 
 - **Web apps**
