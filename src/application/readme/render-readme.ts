@@ -1,4 +1,4 @@
-import type { Platform, Profile } from "../../domain/profile.js";
+import type { Platform, Profile, Project } from "../../domain/profile.js";
 import type { ThemeName } from "../../domain/theme.js";
 import { GENERATED_PATHS } from "../artifacts.js";
 
@@ -31,12 +31,29 @@ function link(label: string, url: string): string {
   return `<a href="${url}">${label}</a>`;
 }
 
-function platformItem(platform: Platform, profile: Profile): string {
-  const proof =
-    platform.proof.kind === "live"
-      ? `[${platform.proof.name}](${platform.proof.repo}), ${platform.proof.summary}${SEPARATOR}[${profile.copy.liveDemo}](${platform.proof.demo})`
-      : `${platform.proof.summary}${SEPARATOR}<i>${profile.copy.nda}</i>`;
-  return `- **${platform.title}**${SEPARATOR}${proof}<br><sub>${platform.stack.join(SEPARATOR)}</sub>`;
+function stackLine(stack: readonly string[]): string {
+  return `<br><sub>${stack.join(SEPARATOR)}</sub>`;
+}
+
+function projectItem(project: Project, profile: Profile): string {
+  const name = project.repo === undefined ? `**${project.name}**` : `[**${project.name}**](${project.repo})`;
+  const links = [
+    ...(project.demo === undefined ? [] : [`[${profile.copy.liveDemo}](${project.demo})`]),
+    ...(project.repo === undefined ? [`<i>${profile.copy.privateCode}</i>`] : []),
+  ];
+  return `  - ${name}, ${project.summary}${SEPARATOR}${links.join(SEPARATOR)}${stackLine(project.stack)}`;
+}
+
+function platformItem(platform: Platform, profile: Profile, projects: ReadonlyMap<string, Project>): string {
+  const lines = [`- **${platform.title}**`];
+  for (const id of platform.projects) {
+    const project = projects.get(id);
+    if (project !== undefined) lines.push(projectItem(project, profile));
+  }
+  if (platform.nda !== undefined) {
+    lines.push(`  - ${platform.nda.summary}${SEPARATOR}<i>${profile.copy.nda}</i>${stackLine(platform.nda.stack)}`);
+  }
+  return lines.join("\n");
 }
 
 function openSourceItem(repo: string, summary: string, facts: RepositoryFacts | undefined): string {
@@ -51,6 +68,7 @@ function activityUrl(profile: Profile, theme: ThemeName): string {
 
 export function renderReadme({ profile, repositories }: ReadmeInput): string {
   const { identity, copy } = profile;
+  const projects = new Map(profile.projects.map((project) => [project.id, project]));
   const sections = [
     `<!-- ${copy.generatedNotice} -->`,
     themedPicture(GENERATED_PATHS.banner("light"), GENERATED_PATHS.banner("dark"), copy.bannerAlt),
@@ -59,7 +77,7 @@ export function renderReadme({ profile, repositories }: ReadmeInput): string {
     centered(profile.contacts.map((contact) => link(contact.label, contact.url)).join(SEPARATOR)),
     `## ${copy.build}`,
     themedPicture(GENERATED_PATHS.showcase("light"), GENERATED_PATHS.showcase("dark"), copy.showcaseAlt),
-    profile.platforms.map((platform) => platformItem(platform, profile)).join("\n"),
+    profile.platforms.map((platform) => platformItem(platform, profile, projects)).join("\n"),
     `## ${copy.work}`,
     profile.principles.map((principle) => `- **${principle.title}:** ${principle.text}`).join("\n"),
     `## ${copy.activity}`,

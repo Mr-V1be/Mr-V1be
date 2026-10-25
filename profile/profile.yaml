@@ -26,9 +26,10 @@ copy:
   generatedNotice: Generated from profile/profile.yaml by pnpm generate. Edit the data, not this file.
   bannerAlt: Evgeniy Gospodarik, Senior Full Stack Engineer. One backend serving web, iOS and Android, Telegram, desktop and store clients.
   build: What I build
-  showcaseAlt: Live projects. Kedrovnik 3D house configurator, Mestechko booking Mini App on a phone, Snoska document review.
+  showcaseAlt: Kedrovnik 3D house configurator with dollar estimates, Spotmatch Mini App on a phone, Gem Finder market analytics.
   liveDemo: Live demo
   nda: client work under NDA
+  privateCode: private code
   work: How I work
   activity: Activity
   activityAlt: Contributions over the last year, including private client work, as a 3D chart.
@@ -36,73 +37,92 @@ copy:
   activityNote: private client work included as anonymous counts
   openSource: Open source
 
+# Projects that can be shown; platforms and the showcase refer to them by id.
+projects:
+  - id: kedrovnik
+    name: Kedrovnik
+    summary: house builder site with a real-time 3D configurator, estimates in the visitor's currency and a CMS
+    stack: [Next.js, Payload CMS, React Three Fiber, PostgreSQL]
+    repo: https://github.com/Mr-V1be/kedrovnik
+    demo: https://kedrovnik.46-62-170-144.sslip.io/en
+  - id: gemfinder
+    name: Gem Finder
+    summary: Telegram gift market analytics with scans below the floor, heatmaps and presets
+    stack: [React, Tailwind CSS, Node.js, Express]
+    demo: https://gemfinder.46-62-170-144.sslip.io
+  - id: spotmatch
+    name: Spotmatch
+    summary: Mini App for dating and meeting people nearby, with geo search, likes and chats
+    stack: [React, FastAPI, PostgreSQL, PostGIS]
+  - id: mestechko
+    name: Mestechko
+    summary: online booking with a Mini App, a bot, a business cabinet and a site widget
+    stack: [NestJS, React, grammY, PostgreSQL]
+    repo: https://github.com/Mr-V1be/mestechko
+    demo: https://mestechko.tehniki.tech
+  - id: snoska
+    name: Snoska
+    summary: B2B document compliance checks with retrieval, AI fixes and audit trails
+    stack: [FastAPI, Next.js, Keycloak, pgvector]
+    repo: https://github.com/Mr-V1be/snoska
+    demo: https://snoska.tehniki.tech
+  - id: flux-sandbox
+    name: Flux Sandbox
+    summary: falling-sand cellular automaton with a thermal field and 54 reactive materials
+    stack: [TypeScript, Canvas, Vite]
+    repo: https://github.com/Mr-V1be/flux-sandbox
+    demo: https://mr-v1be.github.io/flux-sandbox/
+
 # Order matters: it is the order of the banner nodes and of the README list.
 platforms:
   - id: web
     title: Web apps
     node: Web
-    stack: [Next.js, Payload CMS, React Three Fiber]
-    proof:
-      kind: live
-      name: Kedrovnik
-      summary: house builder site with a real-time 3D configurator, estimates and a CMS
-      repo: https://github.com/Mr-V1be/kedrovnik
-      demo: https://kedrovnik.46-62-170-144.sslip.io
+    projects: [kedrovnik, gemfinder]
   - id: telegram
     title: Telegram bots and Mini Apps
     node: Telegram
-    stack: [NestJS, React, grammY, PostgreSQL]
-    proof:
-      kind: live
-      name: Mestechko
-      summary: online booking with a Mini App, a bot, a business cabinet and a site widget
-      repo: https://github.com/Mr-V1be/mestechko
-      demo: https://mestechko.tehniki.tech
+    projects: [spotmatch, mestechko]
   - id: backend-ai
     title: Backend and AI
-    stack: [FastAPI, Keycloak, pgvector, LLM APIs]
-    proof:
-      kind: live
-      name: Snoska
-      summary: B2B document compliance checks with retrieval, AI fixes and audit trails
-      repo: https://github.com/Mr-V1be/snoska
-      demo: https://snoska.tehniki.tech
+    projects: [snoska]
   - id: mobile
     title: iOS and Android
     node: iOS · Android
-    stack: [React Native, Expo, SQLCipher]
-    proof:
-      kind: nda
+    nda:
       summary: booking client and staff apps with offline sync, encrypted storage and store releases
+      stack: [React Native, Expo, SQLCipher]
   - id: ecommerce
     title: E-commerce
     node: Store
-    stack: [Shopify, WooCommerce, Laravel]
-    proof:
-      kind: nda
+    nda:
       summary: a Shopify app, a WooCommerce plugin and a multi-seller Laravel marketplace
+      stack: [Shopify, WooCommerce, Laravel]
   - id: desktop
     title: Desktop
     node: Desktop
-    stack: [Electron, SQLite, electron-builder]
-    proof:
-      kind: nda
+    nda:
       summary: file processing and sync for Windows, macOS and Linux with signed auto-updates
+      stack: [Electron, SQLite, electron-builder]
+  - id: graphics
+    title: Graphics and simulation
+    projects: [flux-sandbox]
 
 showcase:
-  - platform: web
+  - project: kedrovnik
     device: browser
     image:
-      light: assets/projects/kedrovnik-configurator.webp
-  - platform: telegram
+      light: assets/projects/kedrovnik-configurator-light.webp
+      dark: assets/projects/kedrovnik-configurator-dark.webp
+  - project: spotmatch
     device: phone
     image:
-      light: assets/projects/mestechko-miniapp.webp
-  - platform: backend-ai
+      light: assets/projects/spotmatch-discover.webp
+  - project: gemfinder
     device: browser
     image:
-      light: assets/projects/snoska-review-light.webp
-      dark: assets/projects/snoska-review-dark.webp
+      light: assets/projects/gemfinder-analysis-light.webp
+      dark: assets/projects/gemfinder-analysis-dark.webp
 
 principles:
   - title: Architecture first

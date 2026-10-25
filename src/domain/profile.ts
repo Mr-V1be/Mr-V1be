@@ -2,27 +2,29 @@ import { z } from "zod";
 
 const Url = z.string().min(1);
 
-const LiveProof = z.object({
-  kind: z.literal("live"),
+const Id = z.string().regex(/^[a-z0-9-]+$/);
+const Stack = z.array(z.string().min(1)).min(1);
+
+const Project = z.object({
+  id: Id,
   name: z.string().min(1),
   summary: z.string().min(1),
-  repo: Url,
-  demo: Url,
+  stack: Stack,
+  // Both optional: client work may have a live demo but private code, or neither.
+  repo: Url.optional(),
+  demo: Url.optional(),
 });
 
 // Client work under NDA: described, never linked to client code.
-const NdaProof = z.object({
-  kind: z.literal("nda"),
-  summary: z.string().min(1),
-});
+const NdaWork = z.object({ summary: z.string().min(1), stack: Stack });
 
 const Platform = z.object({
-  id: z.string().regex(/^[a-z0-9-]+$/),
+  id: Id,
   title: z.string().min(1),
   // Present only for client surfaces that orbit the backend on the banner.
   node: z.string().min(1).optional(),
-  stack: z.array(z.string().min(1)).min(1),
-  proof: z.discriminatedUnion("kind", [LiveProof, NdaProof]),
+  projects: z.array(Id).default([]),
+  nda: NdaWork.optional(),
 });
 
 const ThemedImage = z.object({
@@ -33,7 +35,7 @@ const ThemedImage = z.object({
 const Device = z.enum(["browser", "phone"]);
 
 const ShowcaseItem = z.object({
-  platform: z.string().min(1),
+  project: Id,
   device: Device,
   image: ThemedImage,
 });
@@ -55,6 +57,7 @@ export const ProfileSchema = z
       showcaseAlt: z.string().min(1),
       liveDemo: z.string().min(1),
       nda: z.string().min(1),
+      privateCode: z.string().min(1),
       work: z.string().min(1),
       activity: z.string().min(1),
       activityAlt: z.string().min(1),
@@ -62,6 +65,7 @@ export const ProfileSchema = z
       activityNote: z.string().min(1),
       openSource: z.string().min(1),
     }),
+    projects: z.array(Project).min(1),
     platforms: z.array(Platform).min(1),
     showcase: z.array(ShowcaseItem),
     principles: z.array(z.object({ title: z.string().min(1), text: z.string().min(1) })),
@@ -70,18 +74,26 @@ export const ProfileSchema = z
     activity: z.object({ owner: z.string().min(1), branch: z.string().min(1) }),
   })
   .superRefine((profile, ctx) => {
-    const ids = new Set(profile.platforms.map((platform) => platform.id));
-    if (ids.size !== profile.platforms.length) {
-      ctx.addIssue({ code: "custom", path: ["platforms"], message: "platform ids must be unique" });
-    }
-    profile.showcase.forEach((item, index) => {
-      if (!ids.has(item.platform)) {
-        ctx.addIssue({ code: "custom", path: ["showcase", index, "platform"], message: `unknown platform ${item.platform}` });
+    const unique = (path: string, ids: readonly string[]) => {
+      if (new Set(ids).size !== ids.length) ctx.addIssue({ code: "custom", path: [path], message: `${path} ids must be unique` });
+    };
+    unique("projects", profile.projects.map((project) => project.id));
+    unique("platforms", profile.platforms.map((platform) => platform.id));
+    const projects = new Set(profile.projects.map((project) => project.id));
+    const known = (id: string, path: (string | number)[]) => {
+      if (!projects.has(id)) ctx.addIssue({ code: "custom", path, message: `unknown project ${id}` });
+    };
+    profile.platforms.forEach((platform, index) => {
+      platform.projects.forEach((id, at) => known(id, ["platforms", index, "projects", at]));
+      if (platform.projects.length === 0 && platform.nda === undefined) {
+        ctx.addIssue({ code: "custom", path: ["platforms", index], message: "a platform needs projects or NDA work" });
       }
     });
+    profile.showcase.forEach((item, index) => known(item.project, ["showcase", index, "project"]));
   });
 
 export type Profile = z.infer<typeof ProfileSchema>;
 export type Platform = Profile["platforms"][number];
+export type Project = Profile["projects"][number];
 export type ShowcaseItem = Profile["showcase"][number];
 export type DeviceKind = z.infer<typeof Device>;
