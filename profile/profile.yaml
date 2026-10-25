@@ -119,17 +119,31 @@ showcase:
       - project: flux-sandbox
         image:
           light: assets/projects/flux-sandbox.webp
+      - project: snoska
+        image:
+          light: assets/projects/snoska-landing-light.webp
+          dark: assets/projects/snoska-landing-dark.webp
   - device: phone
     slides:
+      - project: mestechko
+        image:
+          light: assets/projects/mestechko-booking.webp
       - project: spotmatch
         image:
           light: assets/projects/spotmatch-discover.webp
+      - project: mestechko
+        image:
+          light: assets/projects/mestechko-review.webp
   - device: browser
     slides:
       - project: gemfinder
         image:
           light: assets/projects/gemfinder-analysis-light.webp
           dark: assets/projects/gemfinder-analysis-dark.webp
+      - project: mestechko
+        image:
+          light: assets/projects/mestechko-schedule-light.webp
+          dark: assets/projects/mestechko-schedule-dark.webp
       - project: gemfinder
         image:
           light: assets/projects/gemfinder-results-light.webp
