@@ -1,0 +1,33 @@
+# Design tokens for the generated images. Every color in an image comes from here.
+
+light:
+  surface: "#FFFFFF"
+  surfaceSunken: "#F3F6F5"
+  border: "#E1E7E4"
+  ink: "#101618"
+  muted: "#59666B"
+  accent: "#0D7F5C"
+  accentSoft: "#DDF1E9"
+  line: "#C7D4CF"
+  dot: "#DCE4E1"
+  frame: "#FFFFFF"
+  frameBar: "#EEF2F0"
+  deviceBody: "#111719"
+  shadow: "#0F2A22"
+  shadowOpacity: 0.16
+
+dark:
+  surface: "#0F1517"
+  surfaceSunken: "#0A0F11"
+  border: "#1F2B2F"
+  ink: "#EEF3F2"
+  muted: "#8E9CA1"
+  accent: "#3DDC97"
+  accentSoft: "#123629"
+  line: "#2B3B40"
+  dot: "#1A262A"
+  frame: "#161E21"
+  frameBar: "#1D282C"
+  deviceBody: "#2A3438"
+  shadow: "#000000"
+  shadowOpacity: 0.5
