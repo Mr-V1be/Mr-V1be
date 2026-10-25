@@ -1,4 +1,5 @@
 import type { Platform, Profile } from "../../domain/profile.js";
+import type { ThemeName } from "../../domain/theme.js";
 import { GENERATED_PATHS } from "../artifacts.js";
 
 export interface RepositoryFacts {
@@ -43,8 +44,9 @@ function openSourceItem(repo: string, summary: string, facts: RepositoryFacts | 
   return `- [${repo}](https://github.com/${repo})${stars}${SEPARATOR}${summary}`;
 }
 
-function activityUrl(profile: Profile, file: string): string {
-  return `https://raw.githubusercontent.com/${profile.activity.owner}/${profile.activity.owner}/${profile.activity.branch}/${file}`;
+function activityUrl(profile: Profile, theme: ThemeName): string {
+  const { owner, branch } = profile.activity;
+  return `https://raw.githubusercontent.com/${owner}/${owner}/${branch}/${GENERATED_PATHS.activity(theme)}`;
 }
 
 export function renderReadme({ profile, repositories }: ReadmeInput): string {
@@ -61,7 +63,7 @@ export function renderReadme({ profile, repositories }: ReadmeInput): string {
     `## ${copy.work}`,
     profile.principles.map((principle) => `- **${principle.title}:** ${principle.text}`).join("\n"),
     `## ${copy.activity}`,
-    themedPicture(activityUrl(profile, profile.activity.light), activityUrl(profile, profile.activity.dark), copy.activityAlt),
+    themedPicture(activityUrl(profile, "light"), activityUrl(profile, "dark"), copy.activityAlt),
   ];
   if (profile.openSource.length > 0) {
     sections.push(

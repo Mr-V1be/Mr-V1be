@@ -31,7 +31,9 @@ copy:
   nda: client work under NDA
   work: How I work
   activity: Activity
-  activityAlt: Contribution graph for the last year in 3D, including private work.
+  activityAlt: Contributions over the last year, including private client work, as a 3D chart.
+  activityTotal: contributions in the last year
+  activityNote: private client work included as anonymous counts
   openSource: Open source
 
 # Order matters: it is the order of the banner nodes and of the README list.
@@ -119,5 +121,3 @@ openSource:
 activity:
   owner: Mr-V1be
   branch: output
-  light: profile-3d-contrib/profile-green-animate.svg
-  dark: profile-3d-contrib/profile-night-green.svg

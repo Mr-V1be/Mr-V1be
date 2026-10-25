@@ -17,6 +17,8 @@ const ThemeTokens = z.object({
   deviceBody: Color,
   shadow: Color,
   shadowOpacity: z.number().min(0).max(1),
+  /** Contribution levels from none to the busiest quartile. */
+  activity: z.tuple([Color, Color, Color, Color, Color]),
 });
 
 export const ThemesSchema = z.object({ light: ThemeTokens, dark: ThemeTokens });

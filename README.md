@@ -35,8 +35,8 @@
 ## Activity
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Mr-V1be/Mr-V1be/output/profile-3d-contrib/profile-night-green.svg">
-  <img src="https://raw.githubusercontent.com/Mr-V1be/Mr-V1be/output/profile-3d-contrib/profile-green-animate.svg" width="100%" alt="Contribution graph for the last year in 3D, including private work.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Mr-V1be/Mr-V1be/output/live/activity-dark.svg">
+  <img src="https://raw.githubusercontent.com/Mr-V1be/Mr-V1be/output/live/activity-light.svg" width="100%" alt="Contributions over the last year, including private client work, as a 3D chart.">
 </picture>
 
 ## Open source

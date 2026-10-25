@@ -58,18 +58,16 @@ export const ProfileSchema = z
       work: z.string().min(1),
       activity: z.string().min(1),
       activityAlt: z.string().min(1),
+      activityTotal: z.string().min(1),
+      activityNote: z.string().min(1),
       openSource: z.string().min(1),
     }),
     platforms: z.array(Platform).min(1),
     showcase: z.array(ShowcaseItem),
     principles: z.array(z.object({ title: z.string().min(1), text: z.string().min(1) })),
     openSource: z.array(z.object({ repo: z.string().regex(/^[\w.-]+\/[\w.-]+$/), summary: z.string().min(1) })),
-    activity: z.object({
-      owner: z.string().min(1),
-      branch: z.string().min(1),
-      light: z.string().min(1),
-      dark: z.string().min(1),
-    }),
+    // Live images are published to a separate branch so the daily refresh stays out of the main history.
+    activity: z.object({ owner: z.string().min(1), branch: z.string().min(1) }),
   })
   .superRefine((profile, ctx) => {
     const ids = new Set(profile.platforms.map((platform) => platform.id));

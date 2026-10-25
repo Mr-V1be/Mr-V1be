@@ -15,6 +15,7 @@ light:
   deviceBody: "#111719"
   shadow: "#0F2A22"
   shadowOpacity: 0.16
+  activity: ["#E6ECEA", "#B4E2CD", "#68C59D", "#1E9D6D", "#0B6E50"]
 
 dark:
   surface: "#0F1517"
@@ -31,3 +32,4 @@ dark:
   deviceBody: "#2A3438"
   shadow: "#000000"
   shadowOpacity: 0.5
+  activity: ["#1A2427", "#174C38", "#1F7D57", "#2DB57D", "#4BE6A3"]

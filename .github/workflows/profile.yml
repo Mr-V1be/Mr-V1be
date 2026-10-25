@@ -50,25 +50,17 @@ jobs:
           git add README.md assets/generated
           git commit -m "chore(profile): regenerate README and images"
           git push
-
-  contributions:
-    name: Contribution graph
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: yoshi389111/github-profile-3d-contrib@v0.9.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: ${{ github.repository_owner }}
-      # A separate branch keeps the daily graph out of the main history.
-      - name: Publish to the output branch
+      # Live images go to their own branch, named in profile.yaml, so the daily refresh stays out of the main history.
+      - name: Publish live images
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git init -q -b output publish
-          cp -r profile-3d-contrib publish/
-          cd publish
+          BRANCH=$(node --input-type=module -e "import { parse } from 'yaml'; import { readFileSync } from 'node:fs'; console.log(parse(readFileSync('profile/profile.yaml', 'utf8')).activity.branch)")
+          TARGET="${RUNNER_TEMP}/live-branch"
+          mkdir -p "$TARGET" && cp -r live "$TARGET/"
+          cd "$TARGET"
+          git init -q -b "$BRANCH"
           git add -A
           git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-            commit -q -m "chore(profile): refresh contribution graph"
-          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output
+            commit -q -m "chore(profile): refresh live images"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$BRANCH"

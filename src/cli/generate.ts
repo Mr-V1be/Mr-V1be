@@ -1,5 +1,6 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { renderActivity } from "../application/activity/render-activity.js";
 import { GENERATED_PATHS } from "../application/artifacts.js";
 import { renderBanner } from "../application/banner/render-banner.js";
 import type { Artifact } from "../application/ports.js";
@@ -10,6 +11,7 @@ import { ProfileSchema } from "../domain/profile.js";
 import { THEME_NAMES, ThemesSchema } from "../domain/theme.js";
 import { FileImageSource } from "../infrastructure/file-image-source.js";
 import { FsArtifactSink } from "../infrastructure/fs-artifact-sink.js";
+import { GitHubContributions } from "../infrastructure/github-contributions.js";
 import { GitHubRepositories } from "../infrastructure/github-repositories.js";
 import { jsonLogger } from "../infrastructure/logger.js";
 import { OpentypeOutliner } from "../infrastructure/opentype-outliner.js";
@@ -42,6 +44,17 @@ async function main(): Promise<void> {
     ]),
   );
   const artifacts = [...themed.flat(), { path: GENERATED_PATHS.readme, content: renderReadme({ profile, repositories }) }];
+
+  // The calendar needs an authenticated API call; without a token the live chart keeps its last published version.
+  const token = process.env.GITHUB_TOKEN;
+  if (token === undefined) {
+    jsonLogger.warn("activity.skipped", { reason: "GITHUB_TOKEN is not set" });
+  } else {
+    const calendar = await new GitHubContributions(token, jsonLogger).calendar(profile.activity.owner);
+    artifacts.push(
+      ...THEME_NAMES.map((name) => ({ path: GENERATED_PATHS.activity(name), content: renderActivity(calendar, profile, themes[name], outliner) })),
+    );
+  }
 
   const changed = await new FsArtifactSink(ROOT).publish(artifacts);
   jsonLogger.info("profile.generated", { artifacts: artifacts.length, changed });
