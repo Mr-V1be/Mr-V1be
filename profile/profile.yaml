@@ -26,7 +26,7 @@ copy:
   generatedNotice: Generated from profile/profile.yaml by pnpm generate. Edit the data, not this file.
   bannerAlt: Evgeniy Gospodarik, Senior Full Stack Engineer. One backend serving web, iOS and Android, Telegram, desktop and store clients.
   build: What I build
-  showcaseAlt: Screens of live projects cycling in a browser and a phone, among them the Kedrovnik 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.
+  showcaseAlt: Screens of live projects cycling in a browser and a phone, among them the Cedarline 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.
   liveDemo: Live demo
   nda: client work under NDA
   privateCode: private code
@@ -39,11 +39,11 @@ copy:
 
 # Projects that can be shown; platforms and the showcase refer to them by id.
 projects:
-  - id: kedrovnik
-    name: Kedrovnik
+  - id: cedarline
+    name: Cedarline
     summary: house builder site with a real-time 3D configurator, estimates in the visitor's currency and a CMS
     stack: [Next.js, Payload CMS, React Three Fiber, PostgreSQL]
-    repo: https://github.com/Mr-V1be/kedrovnik
+    repo: https://github.com/Mr-V1be/cedarline
     demo: https://kedrovnik.46-62-170-144.sslip.io/en
   - id: gemfinder
     name: Gem Finder
@@ -54,17 +54,17 @@ projects:
     name: Spotmatch
     summary: Mini App for dating and meeting people nearby, with geo search, likes and chats
     stack: [React, FastAPI, PostgreSQL, PostGIS]
-  - id: mestechko
-    name: Mestechko
+  - id: slotwise
+    name: Slotwise
     summary: online booking with a Mini App, a bot, a business cabinet and a site widget
     stack: [NestJS, React, grammY, PostgreSQL]
-    repo: https://github.com/Mr-V1be/mestechko
+    repo: https://github.com/Mr-V1be/slotwise
     demo: https://mestechko.tehniki.tech
-  - id: snoska
-    name: Snoska
+  - id: footnote
+    name: Footnote
     summary: B2B document compliance checks with retrieval, AI fixes and audit trails
     stack: [FastAPI, Next.js, Keycloak, pgvector]
-    repo: https://github.com/Mr-V1be/snoska
+    repo: https://github.com/Mr-V1be/footnote
     demo: https://snoska.tehniki.tech
   - id: flux-sandbox
     name: Flux Sandbox
@@ -78,14 +78,14 @@ platforms:
   - id: web
     title: Web apps
     node: Web
-    projects: [kedrovnik, gemfinder]
+    projects: [cedarline, gemfinder]
   - id: telegram
     title: Telegram bots and Mini Apps
     node: Telegram
-    projects: [spotmatch, mestechko]
+    projects: [spotmatch, slotwise]
   - id: backend-ai
     title: Backend and AI
-    projects: [snoska]
+    projects: [footnote]
   - id: mobile
     title: iOS and Android
     node: iOS · Android
@@ -112,38 +112,38 @@ platforms:
 showcase:
   - device: browser
     slides:
-      - project: kedrovnik
+      - project: cedarline
         image:
-          light: assets/projects/kedrovnik-configurator-light.webp
-          dark: assets/projects/kedrovnik-configurator-dark.webp
+          light: assets/projects/cedarline-configurator-light.webp
+          dark: assets/projects/cedarline-configurator-dark.webp
       - project: flux-sandbox
         image:
           light: assets/projects/flux-sandbox.webp
-      - project: snoska
+      - project: footnote
         image:
-          light: assets/projects/snoska-landing-light.webp
-          dark: assets/projects/snoska-landing-dark.webp
+          light: assets/projects/footnote-landing-light.webp
+          dark: assets/projects/footnote-landing-dark.webp
   - device: phone
     slides:
-      - project: mestechko
+      - project: slotwise
         image:
-          light: assets/projects/mestechko-booking.webp
+          light: assets/projects/slotwise-booking.webp
       - project: spotmatch
         image:
           light: assets/projects/spotmatch-discover.webp
-      - project: mestechko
+      - project: slotwise
         image:
-          light: assets/projects/mestechko-review.webp
+          light: assets/projects/slotwise-review.webp
   - device: browser
     slides:
       - project: gemfinder
         image:
           light: assets/projects/gemfinder-analysis-light.webp
           dark: assets/projects/gemfinder-analysis-dark.webp
-      - project: mestechko
+      - project: slotwise
         image:
-          light: assets/projects/mestechko-schedule-light.webp
-          dark: assets/projects/mestechko-schedule-dark.webp
+          light: assets/projects/slotwise-schedule-light.webp
+          dark: assets/projects/slotwise-schedule-dark.webp
       - project: gemfinder
         image:
           light: assets/projects/gemfinder-results-light.webp

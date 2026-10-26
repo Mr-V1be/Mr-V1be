@@ -15,17 +15,17 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/generated/showcase-dark.svg">
-  <img src="assets/generated/showcase-light.svg" width="100%" alt="Screens of live projects cycling in a browser and a phone, among them the Kedrovnik 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.">
+  <img src="assets/generated/showcase-light.svg" width="100%" alt="Screens of live projects cycling in a browser and a phone, among them the Cedarline 3D configurator, the Spotmatch Mini App, Flux Sandbox and Gem Finder.">
 </picture>
 
 - **Web apps**
-  - [**Kedrovnik**](https://github.com/Mr-V1be/kedrovnik), house builder site with a real-time 3D configurator, estimates in the visitor's currency and a CMS · [Live demo](https://kedrovnik.46-62-170-144.sslip.io/en)<br><sub>Next.js · Payload CMS · React Three Fiber · PostgreSQL</sub>
+  - [**Cedarline**](https://github.com/Mr-V1be/cedarline), house builder site with a real-time 3D configurator, estimates in the visitor's currency and a CMS · [Live demo](https://kedrovnik.46-62-170-144.sslip.io/en)<br><sub>Next.js · Payload CMS · React Three Fiber · PostgreSQL</sub>
   - **Gem Finder**, Telegram gift market analytics with scans below the floor, heatmaps and presets · [Live demo](https://gemfinder.46-62-170-144.sslip.io) · <i>private code</i><br><sub>React · Tailwind CSS · Node.js · Express</sub>
 - **Telegram bots and Mini Apps**
   - **Spotmatch**, Mini App for dating and meeting people nearby, with geo search, likes and chats · <i>private code</i><br><sub>React · FastAPI · PostgreSQL · PostGIS</sub>
-  - [**Mestechko**](https://github.com/Mr-V1be/mestechko), online booking with a Mini App, a bot, a business cabinet and a site widget · [Live demo](https://mestechko.tehniki.tech)<br><sub>NestJS · React · grammY · PostgreSQL</sub>
+  - [**Slotwise**](https://github.com/Mr-V1be/slotwise), online booking with a Mini App, a bot, a business cabinet and a site widget · [Live demo](https://mestechko.tehniki.tech)<br><sub>NestJS · React · grammY · PostgreSQL</sub>
 - **Backend and AI**
-  - [**Snoska**](https://github.com/Mr-V1be/snoska), B2B document compliance checks with retrieval, AI fixes and audit trails · [Live demo](https://snoska.tehniki.tech)<br><sub>FastAPI · Next.js · Keycloak · pgvector</sub>
+  - [**Footnote**](https://github.com/Mr-V1be/footnote), B2B document compliance checks with retrieval, AI fixes and audit trails · [Live demo](https://snoska.tehniki.tech)<br><sub>FastAPI · Next.js · Keycloak · pgvector</sub>
 - **iOS and Android**
   - booking client and staff apps with offline sync, encrypted storage and store releases · <i>client work under NDA</i><br><sub>React Native · Expo · SQLCipher</sub>
 - **E-commerce**
