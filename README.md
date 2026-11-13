@@ -51,4 +51,4 @@
 
 ## Open source
 
-- [floze-the-genius/opencode-multi-auth-codex](https://github.com/floze-the-genius/opencode-multi-auth-codex) ★187 · 5 merged pull requests, a local auth dashboard and usage-based rate limits
+- [floze-the-genius/opencode-multi-auth-codex](https://github.com/floze-the-genius/opencode-multi-auth-codex) ★186 · 5 merged pull requests, a local auth dashboard and usage-based rate limits
